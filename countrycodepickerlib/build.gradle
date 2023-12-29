@@ -38,14 +38,33 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 
+subprojects {
+    project.version = gitBranch()
+    apply plugin: 'maven-publish'
+    apply plugin: 'java'
 
-publishing {
-    publications {
-        release(MavenPublication) {
-            //from components.release
-            groupId = 'com.github.tahaprogrammer'
-            artifactId = 'CountryCodePicker'
-            version = '1.0'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        flatDir {
+            dirs "../ZKM"
         }
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                artifactId = jar.archiveBaseName
+            }
+        }
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
     }
 }
