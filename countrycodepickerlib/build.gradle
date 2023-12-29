@@ -54,11 +54,15 @@ subprojects {
         }
     }
 
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-                artifactId = jar.archiveBaseName
+    afterEvaluate {
+        publishing {
+            publications {
+                release(MavenPublication) {
+                    from components.release
+                    groupId = 'com.github.tahaprogrammer'
+                    artifactId = 'CountryCodePicker'
+                    version = '1.0'
+                }
             }
         }
     }
